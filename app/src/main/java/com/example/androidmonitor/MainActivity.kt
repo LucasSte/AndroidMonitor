@@ -1,5 +1,7 @@
 package com.example.androidmonitor
 
+import android.app.ActivityManager
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -12,6 +14,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         getPath()
         goToGpuPage()
+        getMemoryUsage()
     }
 
     private fun goToGpuPage()
@@ -25,6 +28,21 @@ class MainActivity : AppCompatActivity() {
     private fun getPath()
     {
         val path = System.getProperty("user.dir")
-        curPath.text = path.toString()
+        val p = packageManager.getPackageInfo(packageName, 0)
+        //curPath.text = path.toString()
+        curPath.text = p.applicationInfo.dataDir
+    }
+
+    private fun getMemoryUsage()
+    {
+        val mi = ActivityManager.MemoryInfo()
+        val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        activityManager.getMemoryInfo(mi)
+        val availableMegs = mi.availMem / 0x100000L
+        val percentageAvail = mi.availMem / (mi.totalMem.toDouble()  * 100)
+
+        availMbText.text = availableMegs.toString()
+        availMemPer.text = percentageAvail.toString()
+
     }
 }
