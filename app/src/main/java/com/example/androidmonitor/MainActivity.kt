@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
     {
         gpuButton.setOnClickListener {
             val intent = Intent(this, GpuInfo::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, 1)
         }
     }
 
@@ -39,10 +39,15 @@ class MainActivity : AppCompatActivity() {
         val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         activityManager.getMemoryInfo(mi)
         val availableMegs = mi.availMem / 0x100000L
-        val percentageAvail = mi.availMem / (mi.totalMem.toDouble()  * 100)
+        val percentageAvail = mi.availMem / mi.totalMem.toDouble()  * 100
 
         availMbText.text = availableMegs.toString()
         availMemPer.text = percentageAvail.toString()
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        getMemoryUsage()
     }
 }
