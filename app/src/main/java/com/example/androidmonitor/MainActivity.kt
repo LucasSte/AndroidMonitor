@@ -3,8 +3,8 @@ package com.example.androidmonitor
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -15,6 +15,10 @@ class MainActivity : AppCompatActivity() {
         getPath()
         goToGpuPage()
         getMemoryUsage()
+        getProcessName()
+        getMyPID()
+        getDiscUsage()
+        getNetworkUsage()
     }
 
     private fun goToGpuPage()
@@ -44,6 +48,36 @@ class MainActivity : AppCompatActivity() {
         availMbText.text = availableMegs.toString()
         availMemPer.text = percentageAvail.toString()
 
+    }
+
+    private fun getProcessName()
+    {
+        val pid = android.os.Process.myPid()
+        var processName = ""
+        val manager =
+            this.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        for (processInfo in manager.runningAppProcesses) {
+            if (processInfo.pid == pid) {
+                processName = processInfo.processName
+                break
+            }
+        }
+        processNameView.text = processName
+    }
+
+    private fun getMyPID()
+    {
+        PIDView.text = android.os.Process.myPid().toString()
+    }
+
+    private fun getDiscUsage()
+    {
+        // TODO: Implements
+    }
+
+    private fun getNetworkUsage()
+    {
+        // TODO: Implements
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
