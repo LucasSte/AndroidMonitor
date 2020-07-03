@@ -84,4 +84,9 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         getMemoryUsage()
     }
+
+    override fun onResume() {
+        super.onResume()
+        this.getMemoryUsage()
+    }
 }
