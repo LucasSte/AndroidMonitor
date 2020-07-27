@@ -1,14 +1,15 @@
 package com.example.androidmonitor
 
 import android.opengl.GLSurfaceView
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_gpu_info.*
 import javax.microedition.khronos.egl.EGLConfig
-import javax.microedition.khronos.opengles.GL
 import javax.microedition.khronos.opengles.GL10
+
 
 class GpuInfo : AppCompatActivity(), GLSurfaceView.Renderer {
     private var glSurfaceView : GLSurfaceView? = null
@@ -21,6 +22,7 @@ class GpuInfo : AppCompatActivity(), GLSurfaceView.Renderer {
         glSurfaceView!!.setRenderer(this)
 
         (extensionsText.parent as ViewGroup).addView(this.glSurfaceView)
+        extensionsText.movementMethod = ScrollingMovementMethod()
         goBack()
     }
 

@@ -79,10 +79,14 @@
     <TextView
         android:id="@+id/extensionsText"
         android:layout_width="220dp"
-        android:layout_height="174dp"
-        android:layout_marginStart="12dp"
+        android:layout_height="250dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="60dp"
+        android:layout_marginBottom="153dp"
+        android:isScrollContainer="true"
+        android:scrollbars="vertical"
         android:text="extensions"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/versionText" />
 
