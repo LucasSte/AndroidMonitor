@@ -152,17 +152,6 @@
         app:layout_constraintTop_toBottomOf="@+id/sleeping" />
 
     <TextView
-        android:id="@+id/cpuUsageTotal9"
-        android:layout_width="213dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:ems="10"
-        android:gravity="start|top"
-        app:layout_constraintStart_toEndOf="@+id/cpuUsageTotal6"
-        tools:layout_editor_absoluteY="1086dp"
-        tools:text="@tools:sample/cities" />
-
-    <TextView
         android:id="@+id/total"
         android:layout_width="92dp"
         android:layout_height="21dp"
@@ -177,13 +166,10 @@
         android:layout_width="92dp"
         android:layout_height="21dp"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="18dp"
         android:text="Running (%):"
-        app:layout_constraintEnd_toStartOf="@+id/cpuUsageTotal2"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/totalValue" />
+        app:layout_constraintTop_toBottomOf="@+id/total" />
 
     <TextView
         android:id="@+id/sleeping"
