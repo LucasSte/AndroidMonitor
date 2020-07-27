@@ -73,11 +73,20 @@
         android:id="@+id/gpuButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="56dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="28dp"
         android:text="GPU"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/goToStatic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:text="StaticInfo"
+        app:layout_constraintEnd_toStartOf="@+id/gpuButton"
+        app:layout_constraintTop_toTopOf="@+id/gpuButton" />
 
     <TextView
         android:id="@+id/textView5"
@@ -100,31 +109,31 @@
         app:layout_constraintTop_toBottomOf="@+id/processNameView" />
 
     <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="52dp"
+        android:text="Process name:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/processNameView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
+        android:layout_marginStart="40dp"
         android:text="Process Name"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
     <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="60dp"
-        android:text="Process name:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/cpuUsage"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="104dp"
         android:text="Used CPU (%)"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
@@ -145,18 +154,17 @@
         android:id="@+id/stopped"
         android:layout_width="92dp"
         android:layout_height="21dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:text="Stopped (%):"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/sleeping"
         app:layout_constraintTop_toBottomOf="@+id/sleeping" />
 
     <TextView
         android:id="@+id/total"
         android:layout_width="92dp"
         android:layout_height="21dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="24dp"
         android:text="Total (%):"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cpuUsage" />
@@ -165,31 +173,19 @@
         android:id="@+id/running"
         android:layout_width="92dp"
         android:layout_height="21dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="20dp"
         android:text="Running (%):"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/total"
         app:layout_constraintTop_toBottomOf="@+id/total" />
 
     <TextView
         android:id="@+id/sleeping"
         android:layout_width="92dp"
         android:layout_height="21dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:text="Sleeping (%):"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/running"
         app:layout_constraintTop_toBottomOf="@+id/running" />
-
-    <TextView
-        android:id="@+id/zombie"
-        android:layout_width="92dp"
-        android:layout_height="21dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="20dp"
-        android:text="Zombie (%):"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stopped" />
 
     <TextView
         android:id="@+id/runningValue"
@@ -220,7 +216,7 @@
         android:layout_width="213dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
         android:gravity="start|top"
         app:layout_constraintStart_toEndOf="@+id/stopped"
@@ -231,11 +227,11 @@
         android:id="@+id/zombieValue"
         android:layout_width="213dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:gravity="start|top"
-        app:layout_constraintStart_toEndOf="@+id/zombie"
+        app:layout_constraintStart_toStartOf="@+id/stoppedValue"
         app:layout_constraintTop_toBottomOf="@+id/stoppedValue"
         tools:text="@tools:sample/cities" />
 
@@ -278,5 +274,14 @@
         android:text="TextView"
         app:layout_constraintStart_toEndOf="@+id/textView9"
         app:layout_constraintTop_toBottomOf="@+id/currentThread" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Zombie (%):"
+        app:layout_constraintStart_toStartOf="@+id/stopped"
+        app:layout_constraintTop_toBottomOf="@+id/stopped" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

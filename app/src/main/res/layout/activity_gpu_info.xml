@@ -29,7 +29,7 @@
     <TextView
         android:id="@+id/rendererText"
         android:layout_width="262dp"
-        android:layout_height="32dp"
+        android:layout_height="18dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="120dp"
         android:text="Render"
@@ -48,13 +48,11 @@
 
     <TextView
         android:id="@+id/vendorText"
-        android:layout_width="277dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="260dp"
+        android:layout_height="19dp"
         android:text="Vendor"
-        app:layout_constraintStart_toEndOf="@+id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/rendererText" />
+        app:layout_constraintStart_toStartOf="@+id/rendererText"
+        app:layout_constraintTop_toTopOf="@+id/textView4" />
 
     <TextView
         android:id="@+id/textView6"
@@ -69,33 +67,27 @@
     <TextView
         android:id="@+id/versionText"
         android:layout_width="260dp"
-        android:layout_height="44dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="21dp"
         android:text="VersionText"
-        app:layout_constraintStart_toEndOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/vendorText" />
+        app:layout_constraintStart_toStartOf="@+id/vendorText"
+        app:layout_constraintTop_toTopOf="@+id/textView6" />
 
     <TextView
         android:id="@+id/extensionsText"
-        android:layout_width="220dp"
-        android:layout_height="250dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="153dp"
+        android:layout_width="257dp"
+        android:layout_height="253dp"
         android:isScrollContainer="true"
         android:scrollbars="vertical"
         android:text="extensions"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/versionText" />
+        app:layout_constraintStart_toStartOf="@+id/versionText"
+        app:layout_constraintTop_toTopOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="60dp"
         android:text="Extensions"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
