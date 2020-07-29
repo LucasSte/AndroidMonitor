@@ -131,8 +131,8 @@ class MainActivity : AppCompatActivity() {
     {
         val globalBucket = getWifiGlobalRate()
 
-        wifiUploadView.text = (bucket.txBytes.toDouble()/(bucket.endTimeStamp-bucket.startTimeStamp).toDouble()).toString();
-        wifiDownloadView.text = (bucket.rxBytes.toDouble()/(bucket.endTimeStamp-bucket.startTimeStamp).toDouble()).toString();
+        wifiUploadView.text = (globalBucket.txBytes.toDouble()/(globalBucket.endTimeStamp-globalBucket.startTimeStamp).toDouble()).toString();
+        wifiDownloadView.text = (globalBucket.rxBytes.toDouble()/(globalBucket.endTimeStamp-globalBucket.startTimeStamp).toDouble()).toString();
 
         return 0
 
