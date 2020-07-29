@@ -9,6 +9,10 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
@@ -23,18 +27,47 @@ class MainActivity : AppCompatActivity() {
         goToGpuPage()
         getCpuUsage()
         getThread()
-        getMemoryUsage()
+        CoroutineScope(Dispatchers.Default).launch {
+            updateEverySec()
+        }
         getProcessName()
         getMyPID()
         getDiscUsage()
         getNetworkUsage()
+        goToStaticPage()
+    }
+
+    private fun goToStaticPage()
+    {
+        goToStatic.setOnClickListener {
+            val intent = Intent(this, StaticInfo::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private suspend fun updateEverySec() = withContext(Dispatchers.Default)
+    {
+        while (true)
+        {
+            //Memory usage
+            val mi = ActivityManager.MemoryInfo()
+            val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+            activityManager.getMemoryInfo(mi)
+            val availableMegs = mi.availMem / 0x100000L
+            val percentageAvail = mi.availMem / mi.totalMem.toDouble()  * 100
+            runOnUiThread {
+                availMbText.text = availableMegs.toString()
+                availMemPer.text = percentageAvail.toString()
+            }
+            Thread.sleep(1000)
+        }
     }
 
     private fun goToGpuPage()
     {
         gpuButton.setOnClickListener {
             val intent = Intent(this, GpuInfo::class.java)
-            startActivityForResult(intent, 1)
+            startActivity(intent)
         }
     }
 
@@ -46,18 +79,6 @@ class MainActivity : AppCompatActivity() {
         curPath.text = p.applicationInfo.dataDir
     }
 
-    private fun getMemoryUsage()
-    {
-        val mi = ActivityManager.MemoryInfo()
-        val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        activityManager.getMemoryInfo(mi)
-        val availableMegs = mi.availMem / 0x100000L
-        val percentageAvail = mi.availMem / mi.totalMem.toDouble()  * 100
-
-        availMbText.text = availableMegs.toString()
-        availMemPer.text = percentageAvail.toString()
-
-    }
 
     private fun getProcessName()
     {
@@ -162,15 +183,9 @@ class MainActivity : AppCompatActivity() {
         currentThreadPriority.text = Thread.currentThread().priority.toString()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        getMemoryUsage()
-        getThread()
-    }
 
     override fun onResume() {
         super.onResume()
-        this.getMemoryUsage()
         this.getCpuUsage()
         this.getThread()
     }

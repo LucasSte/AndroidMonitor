@@ -29,7 +29,6 @@ class GpuInfo : AppCompatActivity(), GLSurfaceView.Renderer {
     private fun goBack()
     {
         backButton.setOnClickListener {
-            setResult(2)
             finish()
         }
     }
