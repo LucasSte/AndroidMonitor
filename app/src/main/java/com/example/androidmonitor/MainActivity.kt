@@ -1,8 +1,10 @@
 package com.example.androidmonitor
 
+import android.annotation.SuppressLint
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +15,7 @@ import java.io.InputStreamReader
 
 class MainActivity : AppCompatActivity() {
 
+    @SuppressLint("HardwareIds")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -156,11 +159,13 @@ class MainActivity : AppCompatActivity() {
     private fun getThread() {
         currentThread.text = Thread.currentThread().toString()
         currentThreadCount.text = Thread.activeCount().toString()
+        currentThreadPriority.text = Thread.currentThread().priority.toString()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         getMemoryUsage()
+        getThread()
     }
 
     override fun onResume() {
