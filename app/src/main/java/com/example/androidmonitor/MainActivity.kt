@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -35,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         getDiscUsage()
         getNetworkUsage()
         goToStaticPage()
+        setThreadPriority()
     }
 
     private fun goToStaticPage()
@@ -49,17 +49,23 @@ class MainActivity : AppCompatActivity() {
     {
         while (true)
         {
-            //Memory usage
-            val mi = ActivityManager.MemoryInfo()
-            val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-            activityManager.getMemoryInfo(mi)
-            val availableMegs = mi.availMem / 0x100000L
-            val percentageAvail = mi.availMem / mi.totalMem.toDouble()  * 100
-            runOnUiThread {
-                availMbText.text = availableMegs.toString()
-                availMemPer.text = percentageAvail.toString()
-            }
+            getMemUsage()
+            getThread()
+            getCpuUsage()
             Thread.sleep(1000)
+        }
+    }
+
+    private fun getMemUsage() {
+        //Memory usage
+        val mi = ActivityManager.MemoryInfo()
+        val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        activityManager.getMemoryInfo(mi)
+        val availableMegs = mi.availMem / 0x100000L
+        val percentageAvail = mi.availMem / mi.totalMem.toDouble()  * 100
+        runOnUiThread {
+            availMbText.text = availableMegs.toString()
+            availMemPer.text = percentageAvail.toString()
         }
     }
 
@@ -138,7 +144,6 @@ class MainActivity : AppCompatActivity() {
         }
         tempString = tempString!!.trim { it <= ' ' }
         var myString = tempString.split(" ".toRegex()).toTypedArray()
-        print(myString)
         var cpuUsageAsInt = IntArray(myString.size)
         for (i in myString.indices) {
             if (myString[i].length == 1) {
@@ -178,15 +183,28 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getThread() {
-        currentThread.text = Thread.currentThread().toString()
-        currentThreadCount.text = Thread.activeCount().toString()
-        currentThreadPriority.text = Thread.currentThread().priority.toString()
+        runOnUiThread() {
+            currentThread.text = Thread.currentThread().toString()
+            currentThreadCount.text = Thread.activeCount().toString()
+            currentThreadPriority.text = Thread.currentThread().priority.toString()
+        }
     }
 
+    private fun setThreadPriority() {
+        upPriority.setOnClickListener(){
+            Thread.currentThread().priority++
+        }
+
+        downPriority.setOnClickListener() {
+            Thread.currentThread().priority--
+        }
+
+        getThread()
+    }
 
     override fun onResume() {
         super.onResume()
-        this.getCpuUsage()
-        this.getThread()
+        getCpuUsage()
+        getThread()
     }
 }
