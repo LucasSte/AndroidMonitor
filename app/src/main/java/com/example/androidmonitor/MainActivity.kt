@@ -7,12 +7,13 @@ import android.app.usage.NetworkStatsManager
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.os.RemoteException
 import android.provider.Settings
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -24,7 +25,7 @@ import kotlinx.coroutines.withContext
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStreamReader
-import java.util.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -42,7 +43,6 @@ class MainActivity : AppCompatActivity() {
         getProcessName()
         getMyPID()
         getDiskUsage()
-        getNetworkUsage()
         goToStaticPage()
     }
 
@@ -54,21 +54,29 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     private suspend fun updateEverySec() = withContext(Dispatchers.Default)
     {
         while (true)
         {
-            //Memory usage
-            val mi = ActivityManager.MemoryInfo()
-            val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-            activityManager.getMemoryInfo(mi)
-            val availableMegs = mi.availMem / 0x100000L
-            val percentageAvail = mi.availMem / mi.totalMem.toDouble()  * 100
-            runOnUiThread {
-                availMbText.text = availableMegs.toString()
-                availMemPer.text = percentageAvail.toString()
-            }
+            getMemoryUsage()
+            getNetworkUsage()
+
             Thread.sleep(1000)
+        }
+    }
+
+    private fun getMemoryUsage()
+    {
+        //Memory usage
+        val mi = ActivityManager.MemoryInfo()
+        val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
+        activityManager.getMemoryInfo(mi)
+        val availableMegs = mi.availMem / 0x100000L
+        val percentageAvail = mi.availMem / mi.totalMem.toDouble()  * 100
+        runOnUiThread {
+            availMbText.text = availableMegs.toString()
+            availMemPer.text = percentageAvail.toString()
         }
     }
 
@@ -121,32 +129,73 @@ class MainActivity : AppCompatActivity() {
 //            wifiUsageView.text = "No permission"
 //            return -1
 //        }
-        getWifiRate()
-        return 0
+//        getWifiRate()
+        checkNetworkSpeed()
+
+        return 0;
     }
 
     @SuppressLint("SetTextI18n")
     @RequiresApi(Build.VERSION_CODES.M)
-    private fun getWifiRate():Int
+    private fun getWifiRate()
     {
-        val globalBucket = getWifiGlobalRate()
+        val wifiGlobalBucket = getGlobalRate("WIFI")
+        val cellularGlobalBucket = getGlobalRate("CELLULAR")
 
-        wifiUploadView.text = (globalBucket.txBytes.toDouble()/(globalBucket.endTimeStamp-globalBucket.startTimeStamp).toDouble()).toString();
-        wifiDownloadView.text = (globalBucket.rxBytes.toDouble()/(globalBucket.endTimeStamp-globalBucket.startTimeStamp).toDouble()).toString();
+        val elapsedTime = (wifiGlobalBucket.endTimeStamp-wifiGlobalBucket.startTimeStamp).toDouble()
 
-        return 0
+
+        runOnUiThread{
+            wifiUploadView.text = String.format("%.3f", wifiGlobalBucket.txBytes.toDouble()/elapsedTime)
+            println(wifiGlobalBucket.txBytes.toDouble()/elapsedTime)
+            wifiDownloadView.text = String.format("%.3f", wifiGlobalBucket.rxBytes.toDouble()/elapsedTime)
+        }
 
     }
 
     @RequiresApi(Build.VERSION_CODES.M)
-    private fun getWifiGlobalRate():NetworkStats.Bucket {
+    fun checkNetworkSpeed(): String? {
+        val connectivityManager =
+            this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val nc =
+            connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork) // api 23
+        val downSpeed = nc.linkDownstreamBandwidthKbps
+        val upSpeed = nc.linkUpstreamBandwidthKbps
+
+        //8 kbps = 1 kb, 1000 kb = 1 mbps, 8 mbps = 1 Mb/s
+        println(connectivityManager.activeNetwork)
+        println(downSpeed)
+        println(upSpeed)
+        runOnUiThread{
+            wifiUploadView.text = String.format("%.3f", downSpeed.toDouble())
+            wifiDownloadView.text = String.format("%.3f", upSpeed.toDouble())
+        }
+        return "mobile downSpeed :" + downSpeed.toDouble() / 8 / 1000 / 8 + " Mb/s  and upSpeed : " + upSpeed.toDouble() / 8 / 1000 / 8 + " Mb/s"
+    }
+
+    @RequiresApi(Build.VERSION_CODES.M)
+    private fun getGlobalRate(transportType: String):NetworkStats.Bucket {
         val networkStatsManager =
-            applicationContext.getSystemService(Context.NETWORK_STATS_SERVICE) as NetworkStatsManager
+            this.getSystemService(Context.NETWORK_STATS_SERVICE) as NetworkStatsManager
+
+        var networkType: Int;
+        if (transportType == "WIFI")
+        {
+            networkType = NetworkCapabilities.TRANSPORT_WIFI
+        }
+        else if (transportType == "CELLULAR")
+        {
+            networkType = NetworkCapabilities.TRANSPORT_CELLULAR
+        }
+        else
+        {
+            return NetworkStats.Bucket()
+        }
 
         val bucket: NetworkStats.Bucket
         bucket = try {
             networkStatsManager.querySummaryForDevice(
-                NetworkCapabilities.TRANSPORT_WIFI,
+                networkType,
                 "",
                 0,
                 System.currentTimeMillis()
