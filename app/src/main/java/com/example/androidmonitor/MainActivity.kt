@@ -24,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         getPath()
         goToGpuPage()
+        goToCpuPage()
         getCpuUsage()
         getThread()
         CoroutineScope(Dispatchers.Default).launch {
@@ -31,7 +32,6 @@ class MainActivity : AppCompatActivity() {
         }
         getProcessName()
         getMyPID()
-        getDiscUsage()
         getNetworkUsage()
         goToStaticPage()
         setThreadPriority()
@@ -41,6 +41,14 @@ class MainActivity : AppCompatActivity() {
     {
         goToStatic.setOnClickListener {
             val intent = Intent(this, StaticInfo::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun goToCpuPage()
+    {
+        CPUbutton.setOnClickListener {
+            val intent = Intent(this, CpuInfo::class.java)
             startActivity(intent)
         }
     }
@@ -106,14 +114,9 @@ class MainActivity : AppCompatActivity() {
         PIDView.text = android.os.Process.myPid().toString()
     }
 
-    private fun getDiscUsage()
-    {
-        // TODO: Implements
-    }
-
     private fun getNetworkUsage()
     {
-        // TODO: Implements
+        // TODO: Implement
     }
 
     private fun getCpuUsage()
