@@ -41,7 +41,7 @@ class GpuInfo : AppCompatActivity(), GLSurfaceView.Renderer {
         val extensions = p0.glGetString(GL10.GL_EXTENSIONS)
         runOnUiThread{
             rendererText.text = renderer
-            vendorText.text = vendor
+            //vendorText.text = vendor
             versionText.text = version
             extensionsText.text = extensions
             glSurfaceView!!.visibility = View.GONE
