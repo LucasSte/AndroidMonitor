@@ -192,11 +192,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun setThreadPriority() {
         upPriority.setOnClickListener(){
-            Thread.currentThread().priority++
+            if (Thread.currentThread().priority < 10)
+                Thread.currentThread().priority++
         }
 
         downPriority.setOnClickListener() {
-            Thread.currentThread().priority--
+            if (Thread.currentThread().priority > 1)
+                Thread.currentThread().priority--
         }
 
         getThread()
