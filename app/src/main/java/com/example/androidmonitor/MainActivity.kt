@@ -42,7 +42,6 @@ class MainActivity : AppCompatActivity() {
         }
         getProcessName()
         getMyPID()
-        getDiskUsage()
         goToStaticPage()
     }
 
@@ -125,12 +124,12 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.M)
     private fun getNetworkUsage():Int {
         // Todo: Verify permissions
-//        if (!haveStatsPermissions()) {
-//            wifiUsageView.text = "No permission"
-//            return -1
-//        }
-//        getWifiRate()
-        checkNetworkSpeed()
+////        if (!haveStatsPermissions()) {
+////            wifiUsageView.text = "No permission"
+////            return -1
+////        }
+        getWifiRate()
+//        checkNetworkSpeed()
 
         return 0;
     }
