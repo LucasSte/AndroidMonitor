@@ -1,299 +1,344 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:isScrollContainer="true"
+    android:scrollbars="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/pathName"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="8dp"
-        android:text="CurrentDirectory"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        tools:layout_editor_absoluteY="1dp">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="40dp"
-        android:text="Used Memory (MB)"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pathName" />
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="85dp"
+            android:text="Process name:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/availMbText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="TextView"
-        android:textAlignment="viewStart"
-        app:layout_constraintStart_toStartOf="@+id/curPath"
-        app:layout_constraintTop_toBottomOf="@+id/curPath" />
+        <TextView
+            android:id="@+id/total"
+            android:layout_width="92dp"
+            android:layout_height="21dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="20dp"
+            android:text="Total:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cpuUsage" />
 
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="8dp"
-        android:text="Used  Memory (%)"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        <Button
+            android:id="@+id/upPriority"
+            android:layout_width="44dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="141dp"
+            android:text="up"
+            app:layout_constraintStart_toEndOf="@+id/currentThreadPriority"
+            app:layout_constraintTop_toBottomOf="@+id/curPath" />
 
-    <TextView
-        android:id="@+id/availMemPer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/textView7"
-        app:layout_constraintStart_toStartOf="@+id/availMbText"
-        app:layout_constraintTop_toBottomOf="@+id/availMbText" />
+        <TextView
+            android:id="@+id/currentThreadCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            app:layout_constraintStart_toEndOf="@+id/textView9"
+            app:layout_constraintTop_toBottomOf="@+id/currentThread" />
 
-    <TextView
-        android:id="@+id/curPath"
-        android:layout_width="166dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="72dp"
-        android:layout_marginTop="8dp"
-        android:maxLines="2"
-        android:text="PATH"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
-        android:textSize="15sp"
-        app:layout_constraintStart_toEndOf="@+id/pathName"
-        app:layout_constraintTop_toBottomOf="@+id/PIDView" />
+        <TextView
+            android:id="@+id/sleepingValue"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:gravity="start|top"
+            app:layout_constraintStart_toEndOf="@+id/sleeping"
+            app:layout_constraintTop_toBottomOf="@+id/runningValue"
+            tools:text="val" />
 
-    <Button
-        android:id="@+id/gpuButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="48dp"
-        android:text="GPU"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="8dp"
+            android:text="Current Thread Count"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
-    <Button
-        android:id="@+id/goToStatic"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:text="StaticInfo"
-        app:layout_constraintEnd_toStartOf="@+id/gpuButton"
-        app:layout_constraintTop_toTopOf="@+id/gpuButton" />
+        <TextView
+            android:id="@+id/totalValue"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="70dp"
+            android:ems="10"
+            android:gravity="start|top"
+            app:layout_constraintStart_toEndOf="@+id/total"
+            app:layout_constraintTop_toBottomOf="@+id/textView11"
+            tools:text="val" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="40dp"
-        android:text="Process PID"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/processNameView" />
+        <Button
+            android:id="@+id/gpuButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="16dp"
+            android:text="GPU"
+            app:layout_constraintStart_toEndOf="@+id/goToStatic"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/PIDView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="40dp"
-        android:text="PID"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/processNameView" />
+        <TextView
+            android:id="@+id/currentThreadPriority"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="29dp"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            app:layout_constraintStart_toEndOf="@+id/textView11"
+            app:layout_constraintTop_toBottomOf="@+id/currentThreadCount" />
 
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="52dp"
-        android:text="Process name:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="107dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="24dp"
+            android:text="Current Thread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
-    <TextView
-        android:id="@+id/processNameView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="44dp"
-        android:text="Process name:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        <TextView
+            android:id="@+id/zombieValue"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:gravity="start|top"
+            app:layout_constraintStart_toEndOf="@+id/textView13"
+            app:layout_constraintTop_toBottomOf="@+id/stoppedValue"
+            tools:text="val" />
 
-    <TextView
-        android:id="@+id/cpuUsage"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="136dp"
-        android:text="Used CPU (%)"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="93dp"
+            android:layout_height="18dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="30dp"
+            android:text="Zombie:"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/stopped" />
 
-    <TextView
-        android:id="@+id/totalValue"
-        android:layout_width="213dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="28dp"
-        android:ems="10"
-        android:gravity="start|top"
-        app:layout_constraintStart_toEndOf="@+id/total"
-        app:layout_constraintTop_toBottomOf="@+id/cpuUsage"
-        tools:text="@tools:sample/cities" />
+        <TextView
+            android:id="@+id/processNameView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="20dp"
+            android:text="Process name:"
+            app:layout_constraintStart_toEndOf="@+id/textView10"
+            app:layout_constraintTop_toBottomOf="@+id/goToStatic" />
 
-    <TextView
-        android:id="@+id/stopped"
-        android:layout_width="92dp"
-        android:layout_height="21dp"
-        android:layout_marginTop="16dp"
-        android:text="Stopped (%):"
-        app:layout_constraintStart_toStartOf="@+id/sleeping"
-        app:layout_constraintTop_toBottomOf="@+id/sleeping" />
+        <TextView
+            android:id="@+id/availMbText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="55dp"
+            android:layout_marginTop="17dp"
+            android:text="TextView"
+            android:textAlignment="viewStart"
+            app:layout_constraintStart_toEndOf="@+id/textView3"
+            app:layout_constraintTop_toBottomOf="@+id/curPath" />
 
-    <TextView
-        android:id="@+id/total"
-        android:layout_width="92dp"
-        android:layout_height="21dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="24dp"
-        android:text="Total (%):"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cpuUsage" />
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="19dp"
+            android:text="Process PID"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
-    <TextView
-        android:id="@+id/running"
-        android:layout_width="92dp"
-        android:layout_height="21dp"
-        android:layout_marginTop="20dp"
-        android:text="Running (%):"
-        app:layout_constraintStart_toStartOf="@+id/total"
-        app:layout_constraintTop_toBottomOf="@+id/total" />
+        <Button
+            android:id="@+id/goToStatic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="152dp"
+            android:layout_marginTop="16dp"
+            android:text="StaticInfo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/sleeping"
-        android:layout_width="92dp"
-        android:layout_height="21dp"
-        android:layout_marginTop="16dp"
-        android:text="Sleeping (%):"
-        app:layout_constraintStart_toStartOf="@+id/running"
-        app:layout_constraintTop_toBottomOf="@+id/running" />
+        <TextView
+            android:id="@+id/availMemPer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="62dp"
+            android:layout_marginTop="8dp"
+            android:text="TextView"
+            app:layout_constraintStart_toEndOf="@+id/textView7"
+            app:layout_constraintTop_toBottomOf="@+id/availMbText" />
 
-    <TextView
-        android:id="@+id/runningValue"
-        android:layout_width="213dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:gravity="start|top"
-        app:layout_constraintStart_toEndOf="@+id/running"
-        app:layout_constraintTop_toBottomOf="@+id/totalValue"
-        tools:text="@tools:sample/cities" />
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="41dp"
+            android:text="Used Memory (MB)"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pathName" />
 
-    <TextView
-        android:id="@+id/sleepingValue"
-        android:layout_width="213dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:gravity="start|top"
-        app:layout_constraintStart_toEndOf="@+id/sleeping"
-        app:layout_constraintTop_toBottomOf="@+id/runningValue"
-        tools:text="@tools:sample/cities" />
+        <TextView
+            android:id="@+id/pathName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="8dp"
+            android:text="CurrentDirectory"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
-    <TextView
-        android:id="@+id/stoppedValue"
-        android:layout_width="213dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
-        android:ems="10"
-        android:gravity="start|top"
-        app:layout_constraintStart_toEndOf="@+id/stopped"
-        app:layout_constraintTop_toBottomOf="@+id/sleepingValue"
-        tools:text="@tools:sample/cities" />
+        <TextView
+            android:id="@+id/running"
+            android:layout_width="92dp"
+            android:layout_height="21dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="9dp"
+            android:text="Running:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/total" />
 
-    <TextView
-        android:id="@+id/zombieValue"
-        android:layout_width="213dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:gravity="start|top"
-        app:layout_constraintStart_toStartOf="@+id/stoppedValue"
-        app:layout_constraintTop_toBottomOf="@+id/stoppedValue"
-        tools:text="@tools:sample/cities" />
+        <TextView
+            android:id="@+id/runningValue"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:gravity="start|top"
+            app:layout_constraintStart_toEndOf="@+id/running"
+            app:layout_constraintTop_toBottomOf="@+id/totalValue"
+            tools:text="val" />
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="107dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="24dp"
-        android:text="Current Thread"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="8dp"
+            android:text="Used  Memory (%)"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="8dp"
-        android:text="Current Thread Count:"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="7dp"
+            android:text="Current Thread Priority"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
-    <TextView
-        android:id="@+id/currentThread"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="68dp"
-        android:layout_marginTop="32dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/textView8"
-        app:layout_constraintStart_toEndOf="@+id/textView8"
-        app:layout_constraintTop_toBottomOf="@+id/availMemPer" />
+        <TextView
+            android:id="@+id/stoppedValue"
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:gravity="start|top"
+            app:layout_constraintStart_toEndOf="@+id/stopped"
+            app:layout_constraintTop_toBottomOf="@+id/sleepingValue"
+            tools:text="val" />
 
-    <TextView
-        android:id="@+id/currentThreadCount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/textView9"
-        app:layout_constraintTop_toBottomOf="@+id/currentThread" />
+        <Button
+            android:id="@+id/downPriority"
+            android:layout_width="71dp"
+            android:layout_height="36dp"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="141dp"
+            android:text="down"
+            app:layout_constraintStart_toEndOf="@+id/upPriority"
+            app:layout_constraintTop_toBottomOf="@+id/curPath" />
 
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Current Thread Priority"
-        app:layout_constraintStart_toStartOf="@+id/textView9"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        <TextView
+            android:id="@+id/cpuUsage"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="23dp"
+            android:text="Tasks:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
-    <TextView
-        android:id="@+id/currentThreadPriority"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="31dp"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/textView11"
-        app:layout_constraintTop_toBottomOf="@+id/currentThreadCount" />
+        <TextView
+            android:id="@+id/currentThread"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="65dp"
+            android:layout_marginTop="28dp"
+            android:text="TextView"
+            app:layout_constraintStart_toEndOf="@+id/textView8"
+            app:layout_constraintTop_toBottomOf="@+id/availMemPer" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/curPath"
+            android:layout_width="166dp"
+            android:layout_height="43dp"
+            android:layout_marginStart="72dp"
+            android:layout_marginTop="8dp"
+            android:maxLines="2"
+            android:text="PATH"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textSize="15sp"
+            app:layout_constraintStart_toEndOf="@+id/pathName"
+            app:layout_constraintTop_toBottomOf="@+id/PIDView" />
+
+        <TextView
+            android:id="@+id/stopped"
+            android:layout_width="92dp"
+            android:layout_height="21dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="9dp"
+            android:text="Stopped:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sleeping" />
+
+        <TextView
+            android:id="@+id/PIDView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="96dp"
+            android:layout_marginTop="20dp"
+            android:text="PID"
+            app:layout_constraintStart_toEndOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/processNameView" />
+
+        <TextView
+            android:id="@+id/sleeping"
+            android:layout_width="92dp"
+            android:layout_height="21dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="10dp"
+            android:text="Sleeping:"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/running" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
