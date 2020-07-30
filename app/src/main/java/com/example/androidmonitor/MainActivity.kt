@@ -6,6 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
+import android.os.StatFs
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
@@ -32,7 +34,6 @@ class MainActivity : AppCompatActivity() {
         }
         getProcessName()
         getMyPID()
-        getDiscUsage()
         getNetworkUsage()
         goToStaticPage()
     }
@@ -100,14 +101,9 @@ class MainActivity : AppCompatActivity() {
         PIDView.text = android.os.Process.myPid().toString()
     }
 
-    private fun getDiscUsage()
-    {
-        // TODO: Implements
-    }
-
     private fun getNetworkUsage()
     {
-        // TODO: Implements
+        // TODO: Implement
     }
 
     private fun getCpuUsage()
