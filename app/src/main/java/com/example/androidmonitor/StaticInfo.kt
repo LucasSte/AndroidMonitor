@@ -1,7 +1,5 @@
 package com.example.androidmonitor
 
-import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.ActivityManager
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
@@ -20,7 +18,7 @@ class StaticInfo : AppCompatActivity() {
         goBack()
         loadTotalRam()
         getScreenResolution()
-        getDiskUsage()
+        getStorageUsage()
     }
 
     private fun goBack()
@@ -45,16 +43,11 @@ class StaticInfo : AppCompatActivity() {
         displayResTv.text = displayMetrics.widthPixels.toString() + " X " + displayMetrics.heightPixels.toString()
     }
 
-    private fun getDiskUsage()
+    private fun getStorageUsage()
     {
         val statFs = StatFs(Environment.getDataDirectory().absolutePath)
-//        val statFs = StatFs(Environment.getRootDirectory().absolutePath)
 
-        print(statFs.totalBytes)
-        print(statFs.blockCountLong)
-        print(statFs.blockSizeLong)
-        print(statFs.availableBytes)
-        totalDiskTv.text = String.format("%.3f / %.3f", statFs.availableBytes.toDouble()/1073741824,
+        totalStorageTv.text = String.format("%.3f / %.3f", statFs.availableBytes.toDouble()/1073741824,
                 statFs.totalBytes.toDouble() / 1073741824)
         
     }
