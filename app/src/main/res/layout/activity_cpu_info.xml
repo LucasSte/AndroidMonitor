@@ -21,7 +21,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Architecture"
+        android:text="ABI"
         app:layout_constraintStart_toStartOf="@+id/cpuName"
         app:layout_constraintTop_toBottomOf="@+id/cpuName" />
 
