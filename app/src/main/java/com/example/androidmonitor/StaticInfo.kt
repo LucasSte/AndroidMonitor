@@ -33,7 +33,7 @@ class StaticInfo : AppCompatActivity() {
         val mi = ActivityManager.MemoryInfo()
         val activityManager = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
         activityManager.getMemoryInfo(mi)
-        totalRamTv.text = (mi.totalMem.toDouble() / 1073741824).toString()
+        totalRamTv.text = String.format("%.3f GB", mi.totalMem.toDouble() / 1073741824)
     }
 
     private fun getScreenResolution()
@@ -47,7 +47,7 @@ class StaticInfo : AppCompatActivity() {
     {
         val statFs = StatFs(Environment.getDataDirectory().absolutePath)
 
-        totalStorageTv.text = String.format("%.3f / %.3f", statFs.availableBytes.toDouble()/1073741824,
+        totalStorageTv.text = String.format("%.3f GB / %.3f GB", statFs.availableBytes.toDouble()/1073741824,
                 statFs.totalBytes.toDouble() / 1073741824)
         
     }
