@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_cpu_info.*
 import java.io.BufferedReader
 import java.io.FileReader
+import java.io.RandomAccessFile
 
 class CpuInfo : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -38,7 +39,6 @@ class CpuInfo : AppCompatActivity() {
 //            val maxMhz = RandomAccessFile(maxPath, "r").use { it.readLine().toLong() / 1000 }
 //            Pair(minMhz, maxMhz)
 //        } catch (e: Exception) {
-//            Timber.e(e)
 //            Pair(-1, -1)
 //        }
 //    }
@@ -70,25 +70,4 @@ class CpuInfo : AppCompatActivity() {
 
     }
 
-    fun getSwap(){
-        val br = BufferedReader(FileReader("/proc/cpuinfo"))
-
-        var str: String? = null
-
-        val output: MutableMap<String, String> = HashMap()
-
-        while (br.readLine().also({ str = it }) != null) {
-            val data = str?.split(":".toRegex())?.toTypedArray()
-            if (data != null) {
-                if (data.size > 1) {
-                    var key = data[0].trim { it <= ' ' }.replace(" ", "_")
-                    if (key == "Hardware") key = "cpu_model"
-                    output[key] = data[1].trim { it <= ' ' }
-                }
-            }
-        }
-        br.close()
-        cpuNameTV.text = output["cpu_model"]
-
-    }
 }
